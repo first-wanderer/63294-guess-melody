@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Андрей Кованов](https://up.htmlacademy.ru/ecmascript/4/user/63294).
-* Наставник: `Неизвестно`.
+* Наставник: [Денис Корнейчук](https://up.htmlacademy.ru/ecmascript/4/user/70618).
 
 ---
 
