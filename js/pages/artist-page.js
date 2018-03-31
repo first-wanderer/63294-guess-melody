@@ -1,4 +1,6 @@
-import {getElementFromTemplate} from '../js/utils';
+import getElementFromTemplate from './../get-element-from-template.js';
+import togglePage from './../toggle-page.js';
+import genrePage from './genre-page.js';
 
 // The game for artist choose.
 const pageTemplate = `<section class="main main--level main--level-artist">
@@ -61,4 +63,13 @@ const pageTemplate = `<section class="main main--level main--level-artist">
   </div>
 </section>`;
 
-export default getElementFromTemplate(pageTemplate);
+const pageElement = getElementFromTemplate(pageTemplate);
+const answerButtons = Array.from(pageElement.querySelectorAll(`.main-answer`));
+
+answerButtons.forEach((button) => {
+  button.addEventListener(`click`, () => {
+    togglePage(genrePage);
+  });
+});
+
+export default pageElement;

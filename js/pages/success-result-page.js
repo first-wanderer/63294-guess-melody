@@ -1,4 +1,6 @@
-import {getElementFromTemplate} from '../js/utils';
+import getElementFromTemplate from './../get-element-from-template.js';
+import togglePage from './../toggle-page.js';
+import welcomePage from './welcome-page.js';
 
 // Game result: winning.
 const pageTemplate = `<section class="main main--result">
@@ -12,4 +14,11 @@ const pageTemplate = `<section class="main main--result">
   <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
 </section>`;
 
-export default getElementFromTemplate(pageTemplate);
+const pageElement = getElementFromTemplate(pageTemplate);
+const replayButton = pageElement.querySelector(`.main-replay`);
+
+replayButton.addEventListener(`click`, () => {
+  togglePage(welcomePage);
+});
+
+export default pageElement;

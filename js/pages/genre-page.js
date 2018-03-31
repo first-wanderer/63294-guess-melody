@@ -1,4 +1,8 @@
-import {getElementFromTemplate} from '../js/utils';
+import getElementFromTemplate from './../get-element-from-template.js';
+import togglePage from './../toggle-page.js';
+import successPage from './success-result-page.js';
+import timeoutPage from './timeout-result-page.js';
+import attemptsoutPage from './attemptsout-result-page.js';
 
 // The game for genre choose.
 const pageTemplate = `<section class="main main--level main--level-genre">
@@ -84,4 +88,30 @@ const pageTemplate = `<section class="main main--level main--level-genre">
   </div>
 </section>`;
 
-export default getElementFromTemplate(pageTemplate);
+const pageElement = getElementFromTemplate(pageTemplate);
+const sendButton = pageElement.querySelector(`.genre-answer-send`);
+const answerInputs = Array.from(pageElement.querySelectorAll(`.genre-answer input`));
+const resultPages = [successPage, timeoutPage, attemptsoutPage];
+
+const getRandomResultPage = () => {
+  const randomNumber = Math.trunc(Math.random() * 3);
+  return resultPages[randomNumber];
+};
+
+const disableSendButton = () => {
+  sendButton.disabled = answerInputs.every((input) => !input.checked);
+};
+
+sendButton.addEventListener(`click`, () => {
+  togglePage(getRandomResultPage());
+});
+
+answerInputs.forEach((input) => {
+  input.addEventListener(`change`, () => {
+    disableSendButton();
+  });
+});
+
+disableSendButton();
+
+export default pageElement;

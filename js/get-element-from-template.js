@@ -6,4 +6,4 @@ const getElementFromTemplate = (templateString) => {
   return template.content.firstChild;
 };
 
-export {getElementFromTemplate};
+export default getElementFromTemplate;
