@@ -1,60 +1,23 @@
 import {assert} from 'chai';
 
 import getResult from './get-result.js';
+import Fixture from './fixture.js';
 import {getStringByAlias} from './strings.js';
 
+const gameFixture = new Fixture(`score`, `remainingNotes`, `remainingTime`);
+
 const fakePreviousGames = [
-  {
-    score: 10,
-    remainingNotes: 3,
-    remainingTime: 10,
-  },
-  {
-    score: 7,
-    remainingNotes: 2,
-    remainingTime: 20,
-  },
-  {
-    score: 8,
-    remainingNotes: 1,
-    remainingTime: 50,
-  },
-  {
-    score: 20,
-    remainingNotes: 3,
-    remainingTime: 50,
-  }
+  gameFixture.getTestObject(10, 3, 10),
+  gameFixture.getTestObject(7, 2, 20),
+  gameFixture.getTestObject(8, 1, 50),
+  gameFixture.getTestObject(20, 3, 50)
 ];
 
-const fakeNewGameSuccess = {
-  score: 9,
-  remainingNotes: 2,
-  remainingTime: 25,
-};
-
-const fakeNewGameFirstSuccess = {
-  score: 20,
-  remainingNotes: 3,
-  remainingTime: 60,
-};
-
-const fakeNewGameLastSuccess = {
-  score: 7,
-  remainingNotes: 1,
-  remainingTime: 20,
-};
-
-const fakeNewGameFail = {
-  score: 7,
-  remainingNotes: 0,
-  remainingTime: 20,
-};
-
-const fakeNewGameTimeout = {
-  score: 7,
-  remainingNotes: 2,
-  remainingTime: 0,
-};
+const fakeNewGameSuccess = gameFixture.getTestObject(9, 2, 25);
+const fakeNewGameFirstSuccess = gameFixture.getTestObject(20, 3, 60);
+const fakeNewGameLastSuccess = gameFixture.getTestObject(7, 1, 20);
+const fakeNewGameFail = gameFixture.getTestObject(7, 0, 20);
+const fakeNewGameTimeout = gameFixture.getTestObject(7, 2, 0);
 
 describe(`Result getter`, () => {
   it(`should return fail message`, () => {

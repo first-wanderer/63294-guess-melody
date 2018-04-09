@@ -1,201 +1,69 @@
 import {assert} from 'chai';
 
 import getScore from './get-score.js';
+import Fixture from './fixture.js';
 import {getStringByAlias} from './strings.js';
 
+const answerFixture = new Fixture(`rightAnswer`, `spentTime`);
+
 const fakeAnswersFail = [
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: false,
-    spentTime: 20,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 45,
-  },
-  {
-    rightAnswer: false,
-    spentTime: 10,
-  },
-  {
-    rightAnswer: false,
-    spentTime: 25,
-  }
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(false, 20),
+  answerFixture.getTestObject(true, 45),
+  answerFixture.getTestObject(false, 10),
+  answerFixture.getTestObject(false, 25)
 ];
 
 const fakeAnswersFullSlowSuccess = [
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 45,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  }
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 45),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40)
 ];
 
 const fakeAnswersFullFastSuccess = [
-  {
-    rightAnswer: true,
-    spentTime: 10,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 20,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 29,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 15,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 10,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 20,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 29,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 5,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 10,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 23,
-  }
+  answerFixture.getTestObject(true, 10),
+  answerFixture.getTestObject(true, 20),
+  answerFixture.getTestObject(true, 29),
+  answerFixture.getTestObject(true, 15),
+  answerFixture.getTestObject(true, 10),
+  answerFixture.getTestObject(true, 20),
+  answerFixture.getTestObject(true, 29),
+  answerFixture.getTestObject(true, 5),
+  answerFixture.getTestObject(true, 10),
+  answerFixture.getTestObject(true, 23)
 ];
 
 const fakeAnswersPartSlowSuccess = [
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: false,
-    spentTime: 45,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 40,
-  }
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(false, 45),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40),
+  answerFixture.getTestObject(true, 40)
 ];
 
 const fakeAnswersPartFastSuccess = [
-  {
-    rightAnswer: true,
-    spentTime: 10,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 20,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 29,
-  },
-  {
-    rightAnswer: false,
-    spentTime: 15,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 10,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 20,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 29,
-  },
-  {
-    rightAnswer: false,
-    spentTime: 5,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 10,
-  },
-  {
-    rightAnswer: true,
-    spentTime: 23,
-  }
+  answerFixture.getTestObject(true, 10),
+  answerFixture.getTestObject(true, 20),
+  answerFixture.getTestObject(true, 29),
+  answerFixture.getTestObject(false, 15),
+  answerFixture.getTestObject(true, 10),
+  answerFixture.getTestObject(true, 20),
+  answerFixture.getTestObject(true, 29),
+  answerFixture.getTestObject(false, 5),
+  answerFixture.getTestObject(true, 10),
+  answerFixture.getTestObject(true, 23)
 ];
 
 describe(`Score getter`, () => {
