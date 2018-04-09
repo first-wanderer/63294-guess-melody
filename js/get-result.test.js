@@ -1,6 +1,7 @@
 import {assert} from 'chai';
 
 import getResult from './get-result.js';
+import {NULLABLE_ERROR_STRING, ARRAY_ERROR_STRING, FAIL_RESULT_STRING, TIMEOUT_RESULT_STRING, getSuccessResultString} from './strings.js';
 
 const fakePreviousGames = [
   {
@@ -57,19 +58,19 @@ const fakeNewGameTimeout = {
 
 describe(`Result getter`, () => {
   it(`should return fail message`, () => {
-    assert.equal(getResult(fakePreviousGames, fakeNewGameFail), `У вас закончились все попытки. Ничего, повезёт в следующий раз!`);
-    assert.equal(getResult(fakePreviousGames, fakeNewGameTimeout), `Время вышло! Вы не успели отгадать все мелодии.`);
+    assert.equal(getResult(fakePreviousGames, fakeNewGameFail), FAIL_RESULT_STRING);
+    assert.equal(getResult(fakePreviousGames, fakeNewGameTimeout), TIMEOUT_RESULT_STRING);
   });
 
   it(`should return correct success message`, () => {
-    assert.equal(getResult(fakePreviousGames, fakeNewGameSuccess), `Вы заняли 3 место из 5 игроков. Это лучше, чем у 40% игроков.`);
-    assert.equal(getResult(fakePreviousGames, fakeNewGameFirstSuccess), `Вы заняли 1 место из 5 игроков. Это лучше, чем у 80% игроков.`);
-    assert.equal(getResult(fakePreviousGames, fakeNewGameLastSuccess), `Вы заняли 5 место из 5 игроков. Это лучше, чем у 0% игроков.`);
-    assert.equal(getResult([], fakeNewGameLastSuccess), `Вы заняли 1 место из 1 игроков. Это лучше, чем у 0% игроков.`);
+    assert.equal(getResult(fakePreviousGames, fakeNewGameSuccess), getSuccessResultString(3, 5, 40));
+    assert.equal(getResult(fakePreviousGames, fakeNewGameFirstSuccess), getSuccessResultString(1, 5, 80));
+    assert.equal(getResult(fakePreviousGames, fakeNewGameLastSuccess), getSuccessResultString(5, 5, 0));
+    assert.equal(getResult([], fakeNewGameLastSuccess), getSuccessResultString(1, 1, 0));
   });
 
   it(`should fail when it got invalid data`, () => {
-    assert.throws(() => getResult(null, fakeNewGameSuccess), /Previous games data should be an Array./);
-    assert.throws(() => getResult(fakePreviousGames, null), /New game data should be passed./);
+    assert.throws(() => getResult(null, fakeNewGameSuccess), ARRAY_ERROR_STRING);
+    assert.throws(() => getResult(fakePreviousGames, null), NULLABLE_ERROR_STRING);
   });
 });

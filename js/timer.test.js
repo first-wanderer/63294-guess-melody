@@ -1,6 +1,7 @@
 import {assert} from 'chai';
 
 import Timer from './timer.js';
+import {NUMBER_ERROR_STRING} from './strings.js';
 
 describe(`Timer`, () => {
   it(`should return correct timer`, () => {
@@ -16,7 +17,7 @@ describe(`Timer`, () => {
   });
 
   it(`should fail when it got invalid data`, () => {
-    assert.throws(() => new Timer(null), /Passed time should be a number bigger than 0./);
-    assert.throws(() => new Timer(-5), /Passed time should be a number bigger than 0./);
+    assert.throws(() => new Timer(null), NUMBER_ERROR_STRING);
+    assert.throws(() => new Timer(-5), NUMBER_ERROR_STRING);
   });
 });

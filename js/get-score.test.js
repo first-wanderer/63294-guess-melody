@@ -1,6 +1,7 @@
 import {assert} from 'chai';
 
 import getScore from './get-score.js';
+import {NUMBER_ERROR_STRING, ARRAY_ERROR_STRING} from './strings.js';
 
 const fakeAnswersFail = [
   {
@@ -212,8 +213,8 @@ describe(`Score getter`, () => {
   });
 
   it(`should fail when it got invalid data`, () => {
-    assert.throws(() => getScore(fakeAnswersFullSlowSuccess, null), /Remaining notes should be a number bigger than 0./);
-    assert.throws(() => getScore(fakeAnswersFullSlowSuccess, -10), /Remaining notes should be a number bigger than 0./);
-    assert.throws(() => getScore(0, 2), /Answers should be an Array./);
+    assert.throws(() => getScore(fakeAnswersFullSlowSuccess, null), NUMBER_ERROR_STRING);
+    assert.throws(() => getScore(fakeAnswersFullSlowSuccess, -10), NUMBER_ERROR_STRING);
+    assert.throws(() => getScore(0, 2), ARRAY_ERROR_STRING);
   });
 });

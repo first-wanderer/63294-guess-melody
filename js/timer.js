@@ -1,7 +1,9 @@
+import {NUMBER_ERROR_STRING} from './strings.js';
+
 class Timer {
   constructor(time, onTimerEndCallback) {
     if (!Number.isInteger(time) || time <= 0) {
-      throw new Error(`Passed time should be a number bigger than 0.`);
+      throw new Error(NUMBER_ERROR_STRING);
     }
 
     this._remainingTime = time;
