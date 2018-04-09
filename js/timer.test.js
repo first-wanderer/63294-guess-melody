@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 
 import Timer from './timer.js';
-import {NUMBER_ERROR_STRING} from './strings.js';
+import {getStringByAlias} from './strings.js';
 
 describe(`Timer`, () => {
   it(`should return correct timer`, () => {
@@ -17,7 +17,7 @@ describe(`Timer`, () => {
   });
 
   it(`should fail when it got invalid data`, () => {
-    assert.throws(() => new Timer(null), NUMBER_ERROR_STRING);
-    assert.throws(() => new Timer(-5), NUMBER_ERROR_STRING);
+    assert.throws(() => new Timer(null), getStringByAlias(`numberError`));
+    assert.throws(() => new Timer(-5), getStringByAlias(`numberError`));
   });
 });

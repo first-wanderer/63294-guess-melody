@@ -1,12 +1,12 @@
-import {NUMBER_ERROR_STRING, ARRAY_ERROR_STRING} from './strings.js';
+import {getStringByAlias} from './strings.js';
 
 const getScore = (answers, noteCount) => {
   if (!Number.isInteger(noteCount) || noteCount < 0) {
-    throw new Error(NUMBER_ERROR_STRING);
+    throw new Error(getStringByAlias(`numberError`));
   }
 
   if (!Array.isArray(answers)) {
-    throw new Error(ARRAY_ERROR_STRING);
+    throw new Error(getStringByAlias(`arrayError`));
   }
 
   if (noteCount === 0 || answers.length < 10) {

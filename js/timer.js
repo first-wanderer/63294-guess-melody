@@ -1,9 +1,9 @@
-import {NUMBER_ERROR_STRING} from './strings.js';
+import {getStringByAlias} from './strings.js';
 
 class Timer {
   constructor(time, onTimerEndCallback) {
     if (!Number.isInteger(time) || time <= 0) {
-      throw new Error(NUMBER_ERROR_STRING);
+      throw new Error(getStringByAlias(`numberError`));
     }
 
     this._remainingTime = time;

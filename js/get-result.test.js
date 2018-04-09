@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 
 import getResult from './get-result.js';
-import {NULLABLE_ERROR_STRING, ARRAY_ERROR_STRING, FAIL_RESULT_STRING, TIMEOUT_RESULT_STRING, getSuccessResultString} from './strings.js';
+import {getStringByAlias} from './strings.js';
 
 const fakePreviousGames = [
   {
@@ -58,19 +58,19 @@ const fakeNewGameTimeout = {
 
 describe(`Result getter`, () => {
   it(`should return fail message`, () => {
-    assert.equal(getResult(fakePreviousGames, fakeNewGameFail), FAIL_RESULT_STRING);
-    assert.equal(getResult(fakePreviousGames, fakeNewGameTimeout), TIMEOUT_RESULT_STRING);
+    assert.equal(getResult(fakePreviousGames, fakeNewGameFail), getStringByAlias(`failResult`));
+    assert.equal(getResult(fakePreviousGames, fakeNewGameTimeout), getStringByAlias(`timeoutResult`));
   });
 
   it(`should return correct success message`, () => {
-    assert.equal(getResult(fakePreviousGames, fakeNewGameSuccess), getSuccessResultString(3, 5, 40));
-    assert.equal(getResult(fakePreviousGames, fakeNewGameFirstSuccess), getSuccessResultString(1, 5, 80));
-    assert.equal(getResult(fakePreviousGames, fakeNewGameLastSuccess), getSuccessResultString(5, 5, 0));
-    assert.equal(getResult([], fakeNewGameLastSuccess), getSuccessResultString(1, 1, 0));
+    assert.equal(getResult(fakePreviousGames, fakeNewGameSuccess), getStringByAlias(`successResult`, [3, 5, 40]));
+    assert.equal(getResult(fakePreviousGames, fakeNewGameFirstSuccess), getStringByAlias(`successResult`, [1, 5, 80]));
+    assert.equal(getResult(fakePreviousGames, fakeNewGameLastSuccess), getStringByAlias(`successResult`, [5, 5, 0]));
+    assert.equal(getResult([], fakeNewGameLastSuccess), getStringByAlias(`successResult`, [1, 1, 0]));
   });
 
   it(`should fail when it got invalid data`, () => {
-    assert.throws(() => getResult(null, fakeNewGameSuccess), ARRAY_ERROR_STRING);
-    assert.throws(() => getResult(fakePreviousGames, null), NULLABLE_ERROR_STRING);
+    assert.throws(() => getResult(null, fakeNewGameSuccess), getStringByAlias(`arrayError`));
+    assert.throws(() => getResult(fakePreviousGames, null), getStringByAlias(`nullableError`));
   });
 });

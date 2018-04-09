@@ -1,4 +1,4 @@
-import {NULLABLE_ERROR_STRING, ARRAY_ERROR_STRING, FAIL_RESULT_STRING, TIMEOUT_RESULT_STRING, getSuccessResultString} from './strings.js';
+import {getStringByAlias} from './strings.js';
 
 const compareGames = (game, nextGame) => {
   if (game.score === nextGame.score) {
@@ -13,19 +13,19 @@ const compareGames = (game, nextGame) => {
 
 const getResult = (previousGames, newGame) => {
   if (!newGame) {
-    throw new Error(NULLABLE_ERROR_STRING);
+    throw new Error(getStringByAlias(`nullableError`));
   }
 
   if (!Array.isArray(previousGames)) {
-    throw new Error(ARRAY_ERROR_STRING);
+    throw new Error(getStringByAlias(`arrayError`));
   }
 
   if (newGame.remainingTime <= 0) {
-    return TIMEOUT_RESULT_STRING;
+    return getStringByAlias(`timeoutResult`);
   }
 
   if (newGame.remainingNotes <= 0) {
-    return FAIL_RESULT_STRING;
+    return getStringByAlias(`failResult`);
   }
 
   const gamesRating = [...previousGames];
@@ -35,7 +35,7 @@ const getResult = (previousGames, newGame) => {
   const position = gamesRating.indexOf(newGame) + 1;
   const positionPercent = (gamesRating.length - position) / gamesRating.length * 100;
 
-  return getSuccessResultString(position, gamesRating.length, Math.round(positionPercent));
+  return getStringByAlias(`successResult`, [position, gamesRating.length, Math.round(positionPercent)]);
 };
 
 export default getResult;
