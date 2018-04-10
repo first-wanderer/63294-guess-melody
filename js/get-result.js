@@ -1,3 +1,5 @@
+import {getStringByAlias} from './strings.js';
+
 const compareGames = (game, nextGame) => {
   if (game.score === nextGame.score) {
     const gameTime = game.remainingTime;
@@ -11,19 +13,19 @@ const compareGames = (game, nextGame) => {
 
 const getResult = (previousGames, newGame) => {
   if (!newGame) {
-    throw new Error(`New game data should be passed.`);
+    throw new Error(getStringByAlias(`nullableError`));
   }
 
   if (!Array.isArray(previousGames)) {
-    throw new Error(`Previous games data should be an Array.`);
+    throw new Error(getStringByAlias(`arrayError`));
   }
 
   if (newGame.remainingTime <= 0) {
-    return `Время вышло! Вы не успели отгадать все мелодии.`;
+    return getStringByAlias(`timeoutResult`);
   }
 
   if (newGame.remainingNotes <= 0) {
-    return `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
+    return getStringByAlias(`failResult`);
   }
 
   const gamesRating = [...previousGames];
@@ -33,7 +35,7 @@ const getResult = (previousGames, newGame) => {
   const position = gamesRating.indexOf(newGame) + 1;
   const positionPercent = (gamesRating.length - position) / gamesRating.length * 100;
 
-  return `Вы заняли ${position} место из ${gamesRating.length} игроков. Это лучше, чем у ${Math.round(positionPercent)}% игроков.`;
+  return getStringByAlias(`successResult`, [position, gamesRating.length, Math.round(positionPercent)]);
 };
 
 export default getResult;

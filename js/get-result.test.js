@@ -1,75 +1,39 @@
 import {assert} from 'chai';
 
 import getResult from './get-result.js';
+import Fixture from './fixture.js';
+import {getStringByAlias} from './strings.js';
+
+const gameFixture = new Fixture(`score`, `remainingNotes`, `remainingTime`);
 
 const fakePreviousGames = [
-  {
-    score: 10,
-    remainingNotes: 3,
-    remainingTime: 10,
-  },
-  {
-    score: 7,
-    remainingNotes: 2,
-    remainingTime: 20,
-  },
-  {
-    score: 8,
-    remainingNotes: 1,
-    remainingTime: 50,
-  },
-  {
-    score: 20,
-    remainingNotes: 3,
-    remainingTime: 50,
-  }
+  gameFixture.getTestObject(10, 3, 10),
+  gameFixture.getTestObject(7, 2, 20),
+  gameFixture.getTestObject(8, 1, 50),
+  gameFixture.getTestObject(20, 3, 50)
 ];
 
-const fakeNewGameSuccess = {
-  score: 9,
-  remainingNotes: 2,
-  remainingTime: 25,
-};
-
-const fakeNewGameFirstSuccess = {
-  score: 20,
-  remainingNotes: 3,
-  remainingTime: 60,
-};
-
-const fakeNewGameLastSuccess = {
-  score: 7,
-  remainingNotes: 1,
-  remainingTime: 20,
-};
-
-const fakeNewGameFail = {
-  score: 7,
-  remainingNotes: 0,
-  remainingTime: 20,
-};
-
-const fakeNewGameTimeout = {
-  score: 7,
-  remainingNotes: 2,
-  remainingTime: 0,
-};
+const fakeNewGameSuccess = gameFixture.getTestObject(9, 2, 25);
+const fakeNewGameFirstSuccess = gameFixture.getTestObject(20, 3, 60);
+const fakeNewGameLastSuccess = gameFixture.getTestObject(7, 1, 20);
+const fakeNewGameFail = gameFixture.getTestObject(7, 0, 20);
+const fakeNewGameTimeout = gameFixture.getTestObject(7, 2, 0);
 
 describe(`Result getter`, () => {
   it(`should return fail message`, () => {
-    assert.equal(getResult(fakePreviousGames, fakeNewGameFail), `У вас закончились все попытки. Ничего, повезёт в следующий раз!`);
-    assert.equal(getResult(fakePreviousGames, fakeNewGameTimeout), `Время вышло! Вы не успели отгадать все мелодии.`);
+    assert.equal(getResult(fakePreviousGames, fakeNewGameFail), getStringByAlias(`failResult`));
+    assert.equal(getResult(fakePreviousGames, fakeNewGameTimeout), getStringByAlias(`timeoutResult`));
   });
 
   it(`should return correct success message`, () => {
-    assert.equal(getResult(fakePreviousGames, fakeNewGameSuccess), `Вы заняли 3 место из 5 игроков. Это лучше, чем у 40% игроков.`);
-    assert.equal(getResult(fakePreviousGames, fakeNewGameFirstSuccess), `Вы заняли 1 место из 5 игроков. Это лучше, чем у 80% игроков.`);
-    assert.equal(getResult(fakePreviousGames, fakeNewGameLastSuccess), `Вы заняли 5 место из 5 игроков. Это лучше, чем у 0% игроков.`);
-    assert.equal(getResult([], fakeNewGameLastSuccess), `Вы заняли 1 место из 1 игроков. Это лучше, чем у 0% игроков.`);
+    assert.equal(getResult(fakePreviousGames, fakeNewGameSuccess), getStringByAlias(`successResult`, [3, 5, 40]));
+    assert.equal(getResult(fakePreviousGames, fakeNewGameFirstSuccess), getStringByAlias(`successResult`, [1, 5, 80]));
+    assert.equal(getResult(fakePreviousGames, fakeNewGameLastSuccess), getStringByAlias(`successResult`, [5, 5, 0]));
+    assert.equal(getResult([], fakeNewGameLastSuccess), getStringByAlias(`successResult`, [1, 1, 0]));
   });
 
   it(`should fail when it got invalid data`, () => {
-    assert.throws(() => getResult(null, fakeNewGameSuccess), /Previous games data should be an Array./);
-    assert.throws(() => getResult(fakePreviousGames, null), /New game data should be passed./);
+    assert.throws(() => getResult(null, fakeNewGameSuccess), getStringByAlias(`arrayError`));
+    assert.throws(() => getResult(fakePreviousGames, null), getStringByAlias(`nullableError`));
   });
 });

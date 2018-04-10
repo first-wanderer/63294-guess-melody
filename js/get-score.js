@@ -1,10 +1,12 @@
+import {getStringByAlias} from './strings.js';
+
 const getScore = (answers, noteCount) => {
   if (!Number.isInteger(noteCount) || noteCount < 0) {
-    throw new Error(`Remaining notes should be a number bigger than 0.`);
+    throw new Error(getStringByAlias(`numberError`));
   }
 
   if (!Array.isArray(answers)) {
-    throw new Error(`Answers should be an Array.`);
+    throw new Error(getStringByAlias(`arrayError`));
   }
 
   if (noteCount === 0 || answers.length < 10) {
