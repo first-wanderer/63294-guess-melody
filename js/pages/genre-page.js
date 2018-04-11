@@ -1,6 +1,6 @@
 import getElementFromTemplate from './../get-element-from-template.js';
 import togglePage from './../toggle-page.js';
-import resultPage from './success-result-page.js';
+import resultPage from './result-page.js';
 
 const header = `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
   <circle
