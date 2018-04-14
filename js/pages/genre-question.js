@@ -27,14 +27,18 @@ export default (question, answerCallback) => {
 
   const pageElement = getElementFromTemplate(questionTemplate);
   const sendButton = pageElement.querySelector(`.genre-answer-send`);
+  const genreForm = pageElement.querySelector(`.genre`);
   const answerInputs = Array.from(pageElement.querySelectorAll(`.genre-answer input`));
 
   const disableSendButton = () => {
     sendButton.disabled = answerInputs.every((input) => !input.checked);
   };
 
-  sendButton.addEventListener(`click`, () => {
-    answerCallback();
+  genreForm.addEventListener(`submit`, (event) => {
+    const rightAnswers = question.answers.map((item) => item.genre === question.genre);
+    const userAnswers = Array.from(event.currentTarget.elements.answer).map((item) => item.checked);
+
+    answerCallback(rightAnswers.every((item, index) => item === userAnswers[index]));
   });
 
   answerInputs.forEach((input) => {

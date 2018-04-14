@@ -32,8 +32,8 @@ export default (question, answerCallback) => {
   const answerButtons = Array.from(pageElement.querySelectorAll(`.main-answer`));
 
   answerButtons.forEach((button) => {
-    button.addEventListener(`click`, () => {
-      answerCallback();
+    button.addEventListener(`click`, (event) => {
+      answerCallback(event.currentTarget.innerText === question.rightAnswer);
     });
   });
 

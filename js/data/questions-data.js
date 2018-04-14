@@ -4,7 +4,7 @@ export default [
   {
     type: `artist`,
     src: ANSWERS_DATA[1].src,
-    rightAnswer: 0,
+    rightAnswer: ANSWERS_DATA[1].artist,
     answers: [
       ANSWERS_DATA[1],
       ANSWERS_DATA[2],
@@ -14,7 +14,7 @@ export default [
   {
     type: `artist`,
     src: ANSWERS_DATA[2].src,
-    rightAnswer: 2,
+    rightAnswer: ANSWERS_DATA[2].artist,
     answers: [
       ANSWERS_DATA[0],
       ANSWERS_DATA[3],
@@ -24,7 +24,7 @@ export default [
   {
     type: `artist`,
     src: ANSWERS_DATA[3].src,
-    rightAnswer: 1,
+    rightAnswer: ANSWERS_DATA[3].artist,
     answers: [
       ANSWERS_DATA[1],
       ANSWERS_DATA[3],
@@ -34,7 +34,7 @@ export default [
   {
     type: `artist`,
     src: ANSWERS_DATA[4].src,
-    rightAnswer: 1,
+    rightAnswer: ANSWERS_DATA[4].artist,
     answers: [
       ANSWERS_DATA[0],
       ANSWERS_DATA[4],
@@ -44,7 +44,7 @@ export default [
   {
     type: `artist`,
     src: ANSWERS_DATA[5].src,
-    rightAnswer: 2,
+    rightAnswer: ANSWERS_DATA[5].artist,
     answers: [
       ANSWERS_DATA[1],
       ANSWERS_DATA[2],
@@ -54,7 +54,7 @@ export default [
   {
     type: `artist`,
     src: ANSWERS_DATA[0].src,
-    rightAnswer: 0,
+    rightAnswer: ANSWERS_DATA[0].artist,
     answers: [
       ANSWERS_DATA[0],
       ANSWERS_DATA[3],
@@ -64,7 +64,7 @@ export default [
   {
     type: `artist`,
     src: ANSWERS_DATA[1].src,
-    rightAnswer: 0,
+    rightAnswer: ANSWERS_DATA[1].artist,
     answers: [
       ANSWERS_DATA[1],
       ANSWERS_DATA[5],
@@ -74,7 +74,7 @@ export default [
   {
     type: `artist`,
     src: ANSWERS_DATA[2].src,
-    rightAnswer: 2,
+    rightAnswer: ANSWERS_DATA[2].artist,
     answers: [
       ANSWERS_DATA[4],
       ANSWERS_DATA[3],
@@ -84,7 +84,7 @@ export default [
   {
     type: `artist`,
     src: ANSWERS_DATA[3].src,
-    rightAnswer: 0,
+    rightAnswer: ANSWERS_DATA[3].artist,
     answers: [
       ANSWERS_DATA[3],
       ANSWERS_DATA[0],
@@ -93,7 +93,7 @@ export default [
   },
   {
     type: `genre`,
-    genre: `Rock`,
+    genre: ANSWERS_DATA[1].genre,
     answers: [
       ANSWERS_DATA[1],
       ANSWERS_DATA[4],

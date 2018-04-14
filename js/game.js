@@ -19,18 +19,23 @@ const questionElement = document.createElement(`div`);
 gameContainerElement.appendChild(infoElement);
 gameContainerElement.appendChild(questionElement);
 
-const onAnswerHandler = () => {
+const onAnswerHandler = (rightAnswer) => {
   if (++game.questionNumber < QUESTIONS.length) {
-    updateGame(QUESTIONS[game.questionNumber]);
-    return;
+    updateGame(game);
+    return rightAnswer;
   }
 
   const resultContent = resultPage(successResult);
+  resetGame();
   togglePage(resultContent);
+  updateGame(game);
+  return rightAnswer;
 };
 
-const updateGame = (question) => {
+const updateGame = (gameState) => {
+  const question = QUESTIONS[gameState.questionNumber];
   let questioContent;
+
   switch (question.type) {
     case `artist`:
       questioContent = artistQuestion(question, onAnswerHandler);
@@ -48,6 +53,6 @@ const updateGame = (question) => {
 };
 
 resetGame();
-updateGame(QUESTIONS[0]);
+updateGame(game);
 
 export default gameContainerElement;
