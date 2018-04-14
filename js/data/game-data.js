@@ -1,5 +1,5 @@
 export const INITIAL_GAME = Object.freeze({
-  question: 0,
+  questionNumber: 0,
   minutes: `05`,
   seconds: `00`,
   mistakes: 2
