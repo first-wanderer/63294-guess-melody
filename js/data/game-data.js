@@ -1,7 +1,8 @@
+import Fixture from './../fixture';
+
 export const INITIAL_GAME = Object.freeze({
   questionNumber: 0,
-  minutes: `05`,
-  seconds: `00`,
+  time: 300,
   mistakes: 0
 });
 
@@ -13,18 +14,25 @@ export const timeoutResult = {
 };
 
 export const failResult = {
-  type: `timeout`,
+  type: `fail`,
   title: `Какая жалость!`,
   stat: `У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!`,
   buttonTitle: `Попробовать ещё раз`
 };
 
-export const successResult = {
+export const successResult = (stat, comparison) => ({
   type: `success`,
   title: `Вы настоящий меломан!`,
-  stat: `За&nbsp;3&nbsp;минуты и 25&nbsp;секунд
-  <br>вы&nbsp;набрали 12 баллов (8 быстрых)
-  <br>совершив 3 ошибки`,
-  comparison: `Вы заняли 2 место из 10. Это&nbsp;лучше чем у&nbsp;80%&nbsp;игроков`,
+  stat,
+  comparison,
   buttonTitle: `Сыграть ещё раз`
-};
+});
+
+const gameFixture = new Fixture(`score`, `remainingNotes`, `remainingTime`);
+
+export const previousGames = [
+  gameFixture.getTestObject(10, 3, 10),
+  gameFixture.getTestObject(7, 2, 20),
+  gameFixture.getTestObject(8, 1, 50),
+  gameFixture.getTestObject(20, 3, 50)
+];

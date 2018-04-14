@@ -1,4 +1,5 @@
 import {getStringByAlias} from './strings';
+import {timeoutResult, failResult, successResult} from './data/game-data';
 
 const compareGames = (game, nextGame) => {
   if (game.score === nextGame.score) {
@@ -21,11 +22,11 @@ const getResult = (previousGames, newGame) => {
   }
 
   if (newGame.remainingTime <= 0) {
-    return getStringByAlias(`timeoutResult`);
+    return timeoutResult;
   }
 
   if (newGame.remainingNotes <= 0) {
-    return getStringByAlias(`failResult`);
+    return failResult;
   }
 
   const gamesRating = [...previousGames];
@@ -34,8 +35,13 @@ const getResult = (previousGames, newGame) => {
 
   const position = gamesRating.indexOf(newGame) + 1;
   const positionPercent = (gamesRating.length - position) / gamesRating.length * 100;
+  const minutes = Math.trunc(newGame.remainingTime / 60);
+  const seconds = Math.trunc(newGame.remainingTime - (60 * minutes));
 
-  return getStringByAlias(`successResult`, [position, gamesRating.length, Math.round(positionPercent)]);
+  const comparisonString = getStringByAlias(`successComparison`, [position, gamesRating.length, Math.round(positionPercent)]);
+  const resultString = getStringByAlias(`successResult`, [minutes, seconds, newGame.score, newGame.quickAnswers, 3 - newGame.remainingNotes]);
+
+  return successResult(resultString, comparisonString);
 };
 
 export default getResult;
