@@ -1,4 +1,4 @@
-import {getStringByAlias} from './strings.js';
+import {getStringByAlias} from './strings';
 
 const compareGames = (game, nextGame) => {
   if (game.score === nextGame.score) {

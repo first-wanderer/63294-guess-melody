@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 
-import Timer from './timer.js';
-import {getStringByAlias} from './strings.js';
+import Timer from './timer';
+import {getStringByAlias} from './strings';
 
 describe(`Timer`, () => {
   it(`should return correct timer`, () => {

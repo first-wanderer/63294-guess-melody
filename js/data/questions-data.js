@@ -1,4 +1,4 @@
-import ANSWERS_DATA from './answers-data.js';
+import ANSWERS_DATA from './answers-data';
 
 export default [
   {
