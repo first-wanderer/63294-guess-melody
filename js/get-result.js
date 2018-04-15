@@ -38,8 +38,8 @@ const getResult = (previousGames, newGame) => {
   const minutes = Math.trunc(newGame.remainingTime / 60);
   const seconds = Math.trunc(newGame.remainingTime - (60 * minutes));
 
-  const comparisonString = getStringByAlias(`successComparison`, [position, gamesRating.length, Math.round(positionPercent)]);
   const resultString = getStringByAlias(`successResult`, [minutes, seconds, newGame.score, newGame.quickAnswers, 3 - newGame.remainingNotes]);
+  const comparisonString = getStringByAlias(`successComparison`, [position, gamesRating.length, Math.round(positionPercent)]);
 
   return successResult(resultString, comparisonString);
 };
