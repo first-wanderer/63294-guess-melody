@@ -10,7 +10,7 @@ export default class GenreView extends AbstractView {
     const answerTemplate = (answer, index) => `<div class="genre-answer">
       <div class="player-wrapper">
         <div class="player">
-          <audio src="${answer.src}"></audio>
+          <audio src="${answer.src}" ${index === 0 ? `autoplay` : ``}></audio>
           <button class="player-control player-control--pause"></button>
           <div class="player-track">
             <span class="player-status"></span>
