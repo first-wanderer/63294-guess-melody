@@ -1,6 +1,6 @@
-import getElementFromTemplate from './../get-element-from-template.js';
-import togglePage from './../toggle-page.js';
-import artistPage from './artist-page.js';
+import getElementFromTemplate from './../get-element-from-template';
+import togglePage from './../toggle-page';
+import game from './../game';
 
 // Welcome screen.
 const pageTemplate = `<section class="main main--welcome">
@@ -18,7 +18,7 @@ const pageElement = getElementFromTemplate(pageTemplate);
 const playButton = pageElement.querySelector(`.main-play`);
 
 playButton.addEventListener(`click`, () => {
-  togglePage(artistPage);
+  togglePage(game);
 });
 
 export default pageElement;

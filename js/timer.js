@@ -1,4 +1,4 @@
-import {getStringByAlias} from './strings.js';
+import {getStringByAlias} from './strings';
 
 class Timer {
   constructor(time, onTimerEndCallback) {

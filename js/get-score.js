@@ -1,4 +1,4 @@
-import {getStringByAlias} from './strings.js';
+import {getStringByAlias} from './strings';
 
 const getScore = (answers, noteCount) => {
   if (!Number.isInteger(noteCount) || noteCount < 0) {

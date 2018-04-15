@@ -1,8 +1,8 @@
 import {assert} from 'chai';
 
-import getScore from './get-score.js';
-import Fixture from './fixture.js';
-import {getStringByAlias} from './strings.js';
+import getScore from './get-score';
+import Fixture from './fixture';
+import {getStringByAlias} from './strings';
 
 const answerFixture = new Fixture(`rightAnswer`, `spentTime`);
 
