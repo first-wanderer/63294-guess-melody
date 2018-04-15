@@ -1,6 +1,7 @@
 import {INITIAL_GAME, previousGames} from './data/game-data';
 import QUESTIONS from './data/questions-data';
 import togglePage from './toggle-page';
+import {getStringByAlias} from './strings';
 import genreQuestion from './pages/genre-question';
 import artistQuestion from './pages/artist-question';
 import renderInfo from './pages/game-info';
@@ -55,7 +56,7 @@ const updateGame = (gameState) => {
       questioContent = genreQuestion(question, onAnswerHandler);
       break;
     default:
-      break;
+      throw new Error(getStringByAlias(`unknownQuestionError`));
   }
 
   infoElement.innerHTML = renderInfo(game);

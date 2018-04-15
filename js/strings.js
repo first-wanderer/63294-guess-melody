@@ -2,6 +2,7 @@ const strings = {
   numberError: `Passed value should be a number bigger than 0.`,
   arrayError: `Passed parameter should be an Array.`,
   nullableError: `Passed parameter should exist.`,
+  unknownQuestionError: `Passed unknown question type.`,
   failResult: `У вас закончились все попытки. Ничего, повезёт в следующий раз!`,
   timeoutResult: `Время вышло! Вы не успели отгадать все мелодии.`,
   successComparison: `Вы заняли $s место из $s игроков. Это лучше, чем у $s% игроков.`,
