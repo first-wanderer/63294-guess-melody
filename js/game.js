@@ -5,7 +5,7 @@ import genreQuestion from './pages/genre-question';
 import artistQuestion from './pages/artist-question';
 import renderInfo from './pages/game-info';
 import resultPage from './pages/result-page';
-import getScore from './get-score';
+import {getNewAnswer, getGameTotal} from './get-answer';
 import getResult from './get-result';
 
 let game;
@@ -24,10 +24,7 @@ gameContainerElement.appendChild(infoElement);
 gameContainerElement.appendChild(questionElement);
 
 const onAnswerHandler = (rightAnswer) => {
-  answers.push({
-    rightAnswer,
-    spentTime: 40
-  });
+  answers.push(getNewAnswer(rightAnswer, 40));
 
   if (!rightAnswer) {
     game.mistakes++;
@@ -38,7 +35,7 @@ const onAnswerHandler = (rightAnswer) => {
     return;
   }
 
-  const gameResult = getResult(previousGames, getGameTotal());
+  const gameResult = getResult(previousGames, getGameTotal(game, answers));
   const resultContent = resultPage(gameResult);
 
   togglePage(resultContent);
@@ -64,18 +61,6 @@ const updateGame = (gameState) => {
   infoElement.innerHTML = renderInfo(game);
   questionElement.innerHTML = ``;
   questionElement.appendChild(questioContent);
-};
-
-const getGameTotal = () => {
-  const remainingNotes = 3 - game.mistakes;
-  const quickAnswers = answers.filter((item) => item.rightAnswer && item.spentTime < 30);
-
-  return {
-    score: getScore(answers, remainingNotes),
-    remainingTime: game.time,
-    remainingNotes,
-    quickAnswers: quickAnswers.length
-  };
 };
 
 resetGame();
