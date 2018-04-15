@@ -3,6 +3,8 @@ const strings = {
   arrayError: `Passed parameter should be an Array.`,
   nullableError: `Passed parameter should exist.`,
   unknownQuestionError: `Passed unknown question type.`,
+  abstractClassError: `Instance of abstract class can't be created.`,
+  abstractMethodError: `Abstract method is called. Ovverride it in child class.`,
   failResult: `У вас закончились все попытки. Ничего, повезёт в следующий раз!`,
   timeoutResult: `Время вышло! Вы не успели отгадать все мелодии.`,
   successComparison: `Вы заняли $s место из $s игроков. Это лучше, чем у $s% игроков.`,
