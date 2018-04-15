@@ -59,8 +59,9 @@ const updateGame = (gameState) => {
       throw new Error(getStringByAlias(`unknownQuestionError`));
   }
 
-  infoElement.innerHTML = renderInfo(game);
+  infoElement.innerHTML = ``;
   questionElement.innerHTML = ``;
+  infoElement.appendChild(renderInfo(game));
   questionElement.appendChild(questioContent);
 };
 

@@ -1,31 +1,13 @@
-import getElementFromTemplate from './../get-element-from-template';
+import ResultView from './../views/result-view';
 import togglePage from './../toggle-page';
 import game from './../game';
 
 export default (result) => {
-  const getStatistic = (resultData) => {
-    if (resultData.type === `success`) {
-      return `<div class="main-stat">${resultData.stat}</div>
-      <span class="main-comparison">${resultData.comparison}</span>`;
-    }
+  const resultPage = new ResultView(result);
 
-    return `<div class="main-stat">${resultData.stat}</div>`;
+  resultPage.onReplayClick = () => {
+    togglePage(game);
   };
 
-  const pageTemplate = `<section class="main main--result">
-    <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
-
-    <h2 class="title">${result.title}</h2>
-    ${getStatistic(result)}
-    <span role="button" tabindex="0" class="main-replay">${result.buttonTitle}</span>
-  </section>`;
-
-  const pageElement = getElementFromTemplate(pageTemplate);
-  const replayButton = pageElement.querySelector(`.main-replay`);
-
-  replayButton.addEventListener(`click`, () => {
-    togglePage(game);
-  });
-
-  return pageElement;
+  return resultPage.element;
 };
