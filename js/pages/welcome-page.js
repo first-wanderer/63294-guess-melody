@@ -1,24 +1,13 @@
-import getElementFromTemplate from './../get-element-from-template';
+import WelcomeView from './../views/welcome-view';
 import togglePage from './../toggle-page';
 import game from './../game';
 
-// Welcome screen.
-const pageTemplate = `<section class="main main--welcome">
-  <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
-  <button class="main-play">Начать игру</button>
-  <h2 class="title main-title">Правила игры</h2>
-  <p class="text main-text">
-    Правила просты&nbsp;— за&nbsp;5 минут ответить на все вопросы.<br>
-    Ошибиться можно 3 раза.<br>
-    Удачи!
-  </p>
-</section>`;
+export default () => {
+  const welcomePage = new WelcomeView();
 
-const pageElement = getElementFromTemplate(pageTemplate);
-const playButton = pageElement.querySelector(`.main-play`);
+  welcomePage.onPlayClick = () => {
+    togglePage(game);
+  };
 
-playButton.addEventListener(`click`, () => {
-  togglePage(game);
-});
-
-export default pageElement;
+  return welcomePage.element;
+};

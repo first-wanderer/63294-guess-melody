@@ -1,5 +1,5 @@
 import {INITIAL_GAME, previousGames} from './data/game-data';
-import QUESTIONS from './data/questions-data';
+import {generateQuestions, QuestionType} from './generate-questions';
 import togglePage from './toggle-page';
 import {getStringByAlias} from './strings';
 import genreQuestion from './pages/genre-question';
@@ -11,10 +11,12 @@ import getResult from './get-result';
 
 let game;
 let answers;
+let questions;
 
 const resetGame = () => {
   game = Object.assign({}, INITIAL_GAME);
   answers = [];
+  questions = generateQuestions();
 };
 
 const gameContainerElement = document.createElement(`div`);
@@ -31,7 +33,7 @@ const onAnswerHandler = (rightAnswer) => {
     game.mistakes++;
   }
 
-  if (++game.questionNumber < QUESTIONS.length && game.mistakes < 3 && game.time > 0) {
+  if (++game.questionNumber < questions.length && game.mistakes < 3 && game.time > 0) {
     updateGame(game);
     return;
   }
@@ -45,22 +47,23 @@ const onAnswerHandler = (rightAnswer) => {
 };
 
 const updateGame = (gameState) => {
-  const question = QUESTIONS[gameState.questionNumber];
+  const question = questions[gameState.questionNumber];
   let questioContent;
 
   switch (question.type) {
-    case `artist`:
+    case QuestionType.ARTIST:
       questioContent = artistQuestion(question, onAnswerHandler);
       break;
-    case `genre`:
+    case QuestionType.GENRE:
       questioContent = genreQuestion(question, onAnswerHandler);
       break;
     default:
       throw new Error(getStringByAlias(`unknownQuestionError`));
   }
 
-  infoElement.innerHTML = renderInfo(game);
+  infoElement.innerHTML = ``;
   questionElement.innerHTML = ``;
+  infoElement.appendChild(renderInfo(game));
   questionElement.appendChild(questioContent);
 };
 
