@@ -1,5 +1,4 @@
 import {getStringByAlias} from '../strings';
-import getElementFromTemplate from './../get-element-from-template';
 
 export default class AbstractView {
   constructor() {
@@ -23,7 +22,10 @@ export default class AbstractView {
   }
 
   render() {
-    return getElementFromTemplate(this.template);
+    const template = document.createElement(`template`);
+    template.innerHTML = this.template;
+
+    return template.content.firstChild;
   }
 
   bind() {}
