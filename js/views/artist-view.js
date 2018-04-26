@@ -40,10 +40,10 @@ export default class ArtistView extends AbstractView {
 
     answerButtons.forEach((button) => {
       button.addEventListener(`click`, (event) => {
-        this.onAnswerClick(event.currentTarget.innerText === this._question.rightAnswer);
+        this.onAnswer(event.currentTarget.innerText === this._question.rightAnswer);
       });
     });
   }
 
-  onAnswerClick() {}
+  onAnswer() {}
 }

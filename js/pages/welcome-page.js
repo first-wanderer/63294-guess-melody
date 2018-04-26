@@ -1,13 +1,15 @@
 import WelcomeView from './../views/welcome-view';
-import togglePage from './../toggle-page';
-import game from './../game';
 
-export default () => {
-  const welcomePage = new WelcomeView();
+export default class WelcomePage {
+  constructor(nextPage) {
+    this._welcomePage = new WelcomeView();
 
-  welcomePage.onPlayClick = () => {
-    togglePage(game);
-  };
+    this._welcomePage.onPlayClick = () => {
+      nextPage();
+    };
+  }
 
-  return welcomePage.element;
-};
+  get element() {
+    return this._welcomePage.element;
+  }
+}

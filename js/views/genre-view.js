@@ -39,7 +39,7 @@ export default class GenreView extends AbstractView {
       const rightAnswers = this._question.answers.map((item) => item.genre === this._question.genre);
       const userAnswers = Array.from(event.currentTarget.elements.answer).map((item) => item.checked);
 
-      this.onAnswerSubmit(rightAnswers.every((item, index) => item === userAnswers[index]));
+      this.onAnswer(rightAnswers.every((item, index) => item === userAnswers[index]));
     });
 
     const sendButton = element.querySelector(`.genre-answer-send`);
@@ -58,5 +58,5 @@ export default class GenreView extends AbstractView {
     disableSendButton();
   }
 
-  onAnswerSubmit() {}
+  onAnswer() {}
 }

@@ -3,7 +3,7 @@ import ArtistView from './../views/artist-view';
 export default (question, answerCallback) => {
   const artistQuestion = new ArtistView(question);
 
-  artistQuestion.onAnswerClick = (rightAnswer) => {
+  artistQuestion.onAnswer = (rightAnswer) => {
     answerCallback(rightAnswer);
   };
 
