@@ -49,6 +49,10 @@ export default class GameModel {
     this._state.questionNumber++;
   }
 
+  tick() {
+    this._state.time--;
+  }
+
   canContinue() {
     return this._state.questionNumber < this._questions.length && this._state.mistakes < 3 && this._state.time > 0;
   }

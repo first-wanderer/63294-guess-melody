@@ -1,8 +1,9 @@
-import ArtistView from './../views/artist-view';
-import GenreView from './../views/genre-view';
-import InfoView from './../views/info-view';
+import ArtistView from '../views/artist-view';
+import GenreView from '../views/genre-view';
+import InfoView from '../views/info-view';
+import Timer from '../timer';
 import {getStringByAlias} from '../strings';
-import {QuestionType} from './../generate-questions';
+import {QuestionType} from '../generate-questions';
 
 export default class GamePage {
   constructor(model, nextPage) {
@@ -15,6 +16,9 @@ export default class GamePage {
     this._rootContainer = document.createElement(`div`);
     this._rootContainer.appendChild(this._info.element);
     this._rootContainer.appendChild(this._question.element);
+
+    this._timer = new Timer(this._model.state.time, this.finishGame.bind(this));
+    this._interval = null;
   }
 
   get element() {
@@ -23,9 +27,16 @@ export default class GamePage {
 
   startGame() {
     this.changeQuestion();
+
+    this._interval = setInterval(() => {
+      this._model.tick();
+      this._timer.tick();
+      this.updateInfo();
+    }, 1000);
   }
 
   finishGame() {
+    clearInterval(this._interval);
     this._nextPage(this._model.result);
   }
 
