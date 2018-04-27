@@ -7,7 +7,15 @@ class Timer {
     }
 
     this._remainingTime = time;
+    this._lastAnswerTime = time;
     this._finishTimer = onTimerEndCallback;
+  }
+
+  get answerDuration() {
+    const duration = this._lastAnswerTime - this._remainingTime;
+    this._lastAnswerTime = this._remainingTime;
+
+    return duration;
   }
 
   tick() {

@@ -76,7 +76,7 @@ export default class GamePage {
   }
 
   answerHandler(rightAnswer) {
-    this._model.putNewAnswer(rightAnswer);
+    this._model.putNewAnswer(rightAnswer, this._timer.answerDuration);
 
     if (this._model.canContinue()) {
       this.changeQuestion();

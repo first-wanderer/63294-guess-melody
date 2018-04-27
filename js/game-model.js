@@ -36,10 +36,10 @@ export default class GameModel {
     this._questions = generateQuestions();
   }
 
-  putNewAnswer(rightAnswer) {
+  putNewAnswer(rightAnswer, answerDuration) {
     this._answers.push({
       rightAnswer,
-      spentTime: 40
+      spentTime: answerDuration
     });
 
     if (!rightAnswer) {
