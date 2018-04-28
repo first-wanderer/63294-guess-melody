@@ -2,6 +2,7 @@ const RESOURCE_STRINGS = {
   numberError: `Passed value should be a number bigger than 0.`,
   arrayError: `Passed parameter should be an Array.`,
   nullableError: `Passed parameter should exist.`,
+  loadingDataError: `Data wasn't loaded. Check internet connection and try again.`,
   unknownQuestionError: `Passed unknown question type.`,
   abstractClassError: `Instance of abstract class can't be created.`,
   abstractMethodError: `Abstract method is called. Ovverride it in child class.`,

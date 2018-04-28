@@ -18,7 +18,7 @@ export default class ArtistView extends AbstractView {
 
     return `<section class="main main--level main--level-artist">
       <div class="main-wrap">
-        <h2 class="title main-title">Кто исполняет эту песню?</h2>
+        <h2 class="title main-title">${this._question.question}</h2>
         <div class="player-wrapper">
           <div class="player">
             <audio src="${this._question.src}" autoplay></audio>

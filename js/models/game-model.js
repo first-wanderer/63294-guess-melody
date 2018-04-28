@@ -1,10 +1,10 @@
 import {INITIAL_GAME, previousGames} from '../data/game-data';
-import {generateQuestions} from '../generate-questions';
 import getScore from '../get-score';
 import getResult from '../get-result';
 
 export default class GameModel {
-  constructor() {
+  constructor(questions) {
+    this._questions = questions;
     this.restart();
   }
 
@@ -33,7 +33,6 @@ export default class GameModel {
   restart() {
     this._state = Object.assign({}, INITIAL_GAME);
     this._answers = [];
-    this._questions = generateQuestions();
   }
 
   putNewAnswer(rightAnswer, answerDuration) {

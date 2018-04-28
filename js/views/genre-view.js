@@ -23,7 +23,7 @@ export default class GenreView extends AbstractView {
 
     return `<section class="main main--level main--level-genre">
       <div class="main-wrap">
-        <h2 class="title">Выберите ${this._question.genre} треки</h2>
+        <h2 class="title">${this._question.question}</h2>
         <form class="genre">
           ${this._question.answers.map(answerTemplate).join(``)}
           <button class="genre-answer-send" type="submit">Ответить</button>
