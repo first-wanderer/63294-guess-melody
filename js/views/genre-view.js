@@ -11,7 +11,7 @@ export default class GenreView extends AbstractView {
       <div class="player-wrapper">
         <div class="player">
           <audio src="${answer.src}" ${index === 0 ? `autoplay` : ``}></audio>
-          <button class="player-control player-control--pause"></button>
+          <button class="player-control ${index === 0 ? `player-control--pause` : `player-control--play`}"></button>
           <div class="player-track">
             <span class="player-status"></span>
           </div>
@@ -58,6 +58,36 @@ export default class GenreView extends AbstractView {
     });
 
     disableSendButton();
+
+    const controlButtons = element.querySelectorAll(`.player-control`);
+
+    controlButtons.forEach((button) => {
+      button.addEventListener(`click`, (event) => {
+        event.preventDefault();
+
+        const currentControl = event.currentTarget;
+        if (currentControl.previousElementSibling.paused) {
+          controlButtons.forEach((audioControl) => {
+            if (audioControl === currentControl) {
+              audioControl.classList.remove(`player-control--play`);
+              audioControl.classList.add(`player-control--pause`);
+
+              audioControl.previousElementSibling.play();
+            } else {
+              audioControl.classList.remove(`player-control--pause`);
+              audioControl.classList.add(`player-control--play`);
+
+              audioControl.previousElementSibling.pause();
+            }
+          });
+        } else {
+          currentControl.classList.remove(`player-control--pause`);
+          currentControl.classList.add(`player-control--play`);
+
+          currentControl.previousElementSibling.pause();
+        }
+      });
+    });
   }
 
   onAnswer() {}
