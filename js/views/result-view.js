@@ -19,7 +19,8 @@ export default class ResultView extends AbstractView {
   bind(element) {
     const replayButton = element.querySelector(`.main-replay`);
 
-    replayButton.addEventListener(`click`, () => {
+    replayButton.addEventListener(`click`, (event) => {
+      event.preventDefault();
       this.onReplayClick();
     });
   }

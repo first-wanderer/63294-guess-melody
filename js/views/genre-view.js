@@ -36,6 +36,8 @@ export default class GenreView extends AbstractView {
     const genreForm = element.querySelector(`.genre`);
 
     genreForm.addEventListener(`submit`, (event) => {
+      event.preventDefault();
+
       const rightAnswers = this._question.answers.map((item) => item.genre === this._question.genre);
       const userAnswers = Array.from(event.currentTarget.elements.answer).map((item) => item.checked);
 
