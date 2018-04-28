@@ -1,7 +1,7 @@
-import {INITIAL_GAME, previousGames} from './data/game-data';
-import {generateQuestions} from './generate-questions';
-import getScore from './get-score';
-import getResult from './get-result';
+import {INITIAL_GAME, previousGames} from '../data/game-data';
+import {generateQuestions} from '../generate-questions';
+import getScore from '../get-score';
+import getResult from '../get-result';
 
 export default class GameModel {
   constructor() {

@@ -1,9 +1,9 @@
-import {getStringByAlias} from './strings';
+import ResourceModel from './models/resource-model';
 
 class Timer {
   constructor(time, onTimerEndCallback) {
     if (!Number.isInteger(time) || time <= 0) {
-      throw new Error(getStringByAlias(`numberError`));
+      throw new Error(ResourceModel.getStringByAlias(`numberError`));
     }
 
     this._remainingTime = time;

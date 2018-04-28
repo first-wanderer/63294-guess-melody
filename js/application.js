@@ -1,7 +1,7 @@
 import WelcomePage from './pages/welcome-page';
 import GamePage from './pages/game-page';
 import ResultPage from './pages/result-page';
-import GameModel from './game-model';
+import GameModel from './models/game-model';
 
 const mainContainer = document.querySelector(`.app .main`);
 

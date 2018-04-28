@@ -2,7 +2,7 @@ import ArtistView from '../views/artist-view';
 import GenreView from '../views/genre-view';
 import InfoView from '../views/info-view';
 import Timer from '../timer';
-import {getStringByAlias} from '../strings';
+import ResourceModel from '../models/resource-model';
 import {QuestionType} from '../generate-questions';
 
 export default class GamePage {
@@ -56,7 +56,7 @@ export default class GamePage {
         questionView = new GenreView(question);
         break;
       default:
-        throw new Error(getStringByAlias(`unknownQuestionError`));
+        throw new Error(ResourceModel.getStringByAlias(`unknownQuestionError`));
     }
 
     return questionView;

@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 
 import Timer from './timer';
-import {getStringByAlias} from './strings';
+import ResourceModel from './models/resource-model';
 
 describe(`Timer`, () => {
   it(`should return correct timer`, () => {
@@ -17,7 +17,7 @@ describe(`Timer`, () => {
   });
 
   it(`should fail when it got invalid data`, () => {
-    assert.throws(() => new Timer(null), getStringByAlias(`numberError`));
-    assert.throws(() => new Timer(-5), getStringByAlias(`numberError`));
+    assert.throws(() => new Timer(null), ResourceModel.getStringByAlias(`numberError`));
+    assert.throws(() => new Timer(-5), ResourceModel.getStringByAlias(`numberError`));
   });
 });

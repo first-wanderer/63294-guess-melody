@@ -2,7 +2,7 @@ import {assert} from 'chai';
 
 import getResult from './get-result';
 import Fixture from './fixture';
-import {getStringByAlias} from './strings';
+import ResourceModel from './models/resource-model';
 import {timeoutResult, failResult, successResult} from './data/game-data';
 
 const gameFixture = new Fixture(`score`, `remainingNotes`, `remainingTime`, `quickAnswers`);
@@ -27,21 +27,21 @@ describe(`Result getter`, () => {
   });
 
   it(`should return correct success message`, () => {
-    let expected = successResult(getStringByAlias(`successResult`, [4, 35, 9, 2, 1]), getStringByAlias(`successComparison`, [3, 5, 40]));
+    let expected = successResult(ResourceModel.getStringByAlias(`successResult`, [4, 35, 9, 2, 1]), ResourceModel.getStringByAlias(`successComparison`, [3, 5, 40]));
     assert.deepEqual(getResult(fakePreviousGames, fakeNewGameSuccess), expected);
 
-    expected = successResult(getStringByAlias(`successResult`, [4, 0, 20, 10, 0]), getStringByAlias(`successComparison`, [1, 5, 80]));
+    expected = successResult(ResourceModel.getStringByAlias(`successResult`, [4, 0, 20, 10, 0]), ResourceModel.getStringByAlias(`successComparison`, [1, 5, 80]));
     assert.deepEqual(getResult(fakePreviousGames, fakeNewGameFirstSuccess), expected);
 
-    expected = successResult(getStringByAlias(`successResult`, [4, 40, 7, 1, 2]), getStringByAlias(`successComparison`, [5, 5, 0]));
+    expected = successResult(ResourceModel.getStringByAlias(`successResult`, [4, 40, 7, 1, 2]), ResourceModel.getStringByAlias(`successComparison`, [5, 5, 0]));
     assert.deepEqual(getResult(fakePreviousGames, fakeNewGameLastSuccess), expected);
 
-    expected = successResult(getStringByAlias(`successResult`, [4, 40, 7, 1, 2]), getStringByAlias(`successComparison`, [1, 1, 0]));
+    expected = successResult(ResourceModel.getStringByAlias(`successResult`, [4, 40, 7, 1, 2]), ResourceModel.getStringByAlias(`successComparison`, [1, 1, 0]));
     assert.deepEqual(getResult([], fakeNewGameLastSuccess), expected);
   });
 
   it(`should fail when it got invalid data`, () => {
-    assert.throws(() => getResult(null, fakeNewGameSuccess), getStringByAlias(`arrayError`));
-    assert.throws(() => getResult(fakePreviousGames, null), getStringByAlias(`nullableError`));
+    assert.throws(() => getResult(null, fakeNewGameSuccess), ResourceModel.getStringByAlias(`arrayError`));
+    assert.throws(() => getResult(fakePreviousGames, null), ResourceModel.getStringByAlias(`nullableError`));
   });
 });
