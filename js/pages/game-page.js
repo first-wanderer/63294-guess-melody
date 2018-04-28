@@ -3,7 +3,7 @@ import GenreView from '../views/genre-view';
 import InfoView from '../views/info-view';
 import Timer from '../timer';
 import ResourceModel from '../models/resource-model';
-import {QuestionType} from '../generate-questions';
+import {QuestionType} from '../data/game-data';
 
 export default class GamePage {
   constructor(model, nextPage) {

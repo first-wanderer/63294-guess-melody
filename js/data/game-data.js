@@ -1,5 +1,10 @@
 import Fixture from './../fixture';
 
+export const QuestionType = {
+  ARTIST: `artist`,
+  GENRE: `genre`
+};
+
 export const INITIAL_GAME = Object.freeze({
   questionNumber: 0,
   time: 300,
