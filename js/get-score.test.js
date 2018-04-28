@@ -2,7 +2,7 @@ import {assert} from 'chai';
 
 import getScore from './get-score';
 import Fixture from './fixture';
-import {getStringByAlias} from './strings';
+import ResourceModel from './models/resource-model';
 
 const answerFixture = new Fixture(`rightAnswer`, `spentTime`);
 
@@ -81,8 +81,8 @@ describe(`Score getter`, () => {
   });
 
   it(`should fail when it got invalid data`, () => {
-    assert.throws(() => getScore(fakeAnswersFullSlowSuccess, null), getStringByAlias(`numberError`));
-    assert.throws(() => getScore(fakeAnswersFullSlowSuccess, -10), getStringByAlias(`numberError`));
-    assert.throws(() => getScore(0, 2), getStringByAlias(`arrayError`));
+    assert.throws(() => getScore(fakeAnswersFullSlowSuccess, null), ResourceModel.getStringByAlias(`numberError`));
+    assert.throws(() => getScore(fakeAnswersFullSlowSuccess, -10), ResourceModel.getStringByAlias(`numberError`));
+    assert.throws(() => getScore(0, 2), ResourceModel.getStringByAlias(`arrayError`));
   });
 });

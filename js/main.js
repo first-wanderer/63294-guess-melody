@@ -1,4 +1,3 @@
-import togglePage from './toggle-page';
-import welcomePage from './pages/welcome-page';
+import Application from "./application";
 
-togglePage(welcomePage());
+Application.showWelcome();

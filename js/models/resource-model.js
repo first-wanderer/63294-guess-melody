@@ -1,4 +1,4 @@
-const strings = {
+const RESOURCE_STRINGS = {
   numberError: `Passed value should be a number bigger than 0.`,
   arrayError: `Passed parameter should be an Array.`,
   nullableError: `Passed parameter should exist.`,
@@ -13,20 +13,20 @@ const strings = {
   <br>совершив $s ошибки`
 };
 
-const getStringByAlias = (alias, replacedValues) => {
-  let originalString = strings[alias];
+export default class ResourceModel {
+  static getStringByAlias(alias, replacedValues) {
+    let originalString = RESOURCE_STRINGS[alias];
 
-  if (!originalString) {
-    throw new Error(`String wasn't found.`);
+    if (!originalString) {
+      throw new Error(`String wasn't found.`);
+    }
+
+    if (replacedValues && replacedValues.length > 0) {
+      replacedValues.forEach((element) => {
+        originalString = originalString.replace(`$s`, element);
+      });
+    }
+
+    return originalString;
   }
-
-  if (replacedValues && replacedValues.length > 0) {
-    replacedValues.forEach((element) => {
-      originalString = originalString.replace(`$s`, element);
-    });
-  }
-
-  return originalString;
-};
-
-export {getStringByAlias};
+}

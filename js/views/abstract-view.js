@@ -1,15 +1,14 @@
-import {getStringByAlias} from '../strings';
-import getElementFromTemplate from './../get-element-from-template';
+import ResourceModel from '../models/resource-model';
 
 export default class AbstractView {
   constructor() {
     if (new.target === AbstractView) {
-      throw new Error(getStringByAlias(`abstractClassError`));
+      throw new Error(ResourceModel.getStringByAlias(`abstractClassError`));
     }
   }
 
   get template() {
-    throw new Error(getStringByAlias(`abstractMethodError`));
+    throw new Error(ResourceModel.getStringByAlias(`abstractMethodError`));
   }
 
   get element() {
@@ -23,7 +22,10 @@ export default class AbstractView {
   }
 
   render() {
-    return getElementFromTemplate(this.template);
+    const template = document.createElement(`template`);
+    template.innerHTML = this.template;
+
+    return template.content.firstChild;
   }
 
   bind() {}

@@ -1,5 +1,5 @@
-import {getStringByAlias} from './strings';
-import {timeoutResult, failResult, successResult} from './data/game-data';
+import ResourceModel from './models/resource-model';
+import {INITIAL_GAME, timeoutResult, failResult, successResult} from './data/game-data';
 
 const compareGames = (game, nextGame) => {
   if (game.score === nextGame.score) {
@@ -14,11 +14,11 @@ const compareGames = (game, nextGame) => {
 
 const getResult = (previousGames, newGame) => {
   if (!newGame) {
-    throw new Error(getStringByAlias(`nullableError`));
+    throw new Error(ResourceModel.getStringByAlias(`nullableError`));
   }
 
   if (!Array.isArray(previousGames)) {
-    throw new Error(getStringByAlias(`arrayError`));
+    throw new Error(ResourceModel.getStringByAlias(`arrayError`));
   }
 
   if (newGame.remainingTime <= 0) {
@@ -35,11 +35,12 @@ const getResult = (previousGames, newGame) => {
 
   const position = gamesRating.indexOf(newGame) + 1;
   const positionPercent = (gamesRating.length - position) / gamesRating.length * 100;
-  const minutes = Math.trunc(newGame.remainingTime / 60);
-  const seconds = Math.trunc(newGame.remainingTime - (60 * minutes));
+  const gameTime = INITIAL_GAME.time - newGame.remainingTime;
+  const minutes = Math.trunc(gameTime / 60);
+  const seconds = Math.trunc(gameTime - (60 * minutes));
 
-  const resultString = getStringByAlias(`successResult`, [minutes, seconds, newGame.score, newGame.quickAnswers, 3 - newGame.remainingNotes]);
-  const comparisonString = getStringByAlias(`successComparison`, [position, gamesRating.length, Math.round(positionPercent)]);
+  const resultString = ResourceModel.getStringByAlias(`successResult`, [minutes, seconds, newGame.score, newGame.quickAnswers, 3 - newGame.remainingNotes]);
+  const comparisonString = ResourceModel.getStringByAlias(`successComparison`, [position, gamesRating.length, Math.round(positionPercent)]);
 
   return successResult(resultString, comparisonString);
 };

@@ -1,12 +1,12 @@
-import {getStringByAlias} from './strings';
+import ResourceModel from './models/resource-model';
 
 const getScore = (answers, noteCount) => {
   if (!Number.isInteger(noteCount) || noteCount < 0) {
-    throw new Error(getStringByAlias(`numberError`));
+    throw new Error(ResourceModel.getStringByAlias(`numberError`));
   }
 
   if (!Array.isArray(answers)) {
-    throw new Error(getStringByAlias(`arrayError`));
+    throw new Error(ResourceModel.getStringByAlias(`arrayError`));
   }
 
   if (noteCount === 0 || answers.length < 10) {

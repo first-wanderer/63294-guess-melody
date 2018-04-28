@@ -1,13 +1,15 @@
 import ResultView from './../views/result-view';
-import togglePage from './../toggle-page';
-import game from './../game';
 
-export default (result) => {
-  const resultPage = new ResultView(result);
+export default class ResultPage {
+  constructor(userResult, nextPage) {
+    this._resultPage = new ResultView(userResult);
 
-  resultPage.onReplayClick = () => {
-    togglePage(game);
-  };
+    this._resultPage.onReplayClick = () => {
+      nextPage();
+    };
+  }
 
-  return resultPage.element;
-};
+  get element() {
+    return this._resultPage.element;
+  }
+}

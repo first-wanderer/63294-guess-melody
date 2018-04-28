@@ -1,13 +1,21 @@
-import {getStringByAlias} from './strings';
+import ResourceModel from './models/resource-model';
 
 class Timer {
   constructor(time, onTimerEndCallback) {
     if (!Number.isInteger(time) || time <= 0) {
-      throw new Error(getStringByAlias(`numberError`));
+      throw new Error(ResourceModel.getStringByAlias(`numberError`));
     }
 
     this._remainingTime = time;
+    this._lastAnswerTime = time;
     this._finishTimer = onTimerEndCallback;
+  }
+
+  get answerDuration() {
+    const duration = this._lastAnswerTime - this._remainingTime;
+    this._lastAnswerTime = this._remainingTime;
+
+    return duration;
   }
 
   tick() {
