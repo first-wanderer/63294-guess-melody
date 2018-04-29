@@ -2,23 +2,15 @@ import WelcomePage from './pages/welcome-page';
 import GamePage from './pages/game-page';
 import ResultPage from './pages/result-page';
 import GameModel from './models/game-model';
-import ResourceModel from './models/resource-model';
-import DataAdapter from './data/data-adapter';
+import Loader from './loader';
+import getResult from './get-result';
 
 const mainContainer = document.querySelector(`.app .main`);
 let questions;
 
 export default class Application {
   static start() {
-    window.fetch(`https://es.dump.academy/guess-melody/questions`).
-        then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-
-          throw new Error(ResourceModel.getStringByAlias(`loadingDataError`));
-        }).
-        then((data) => DataAdapter.adaptServerData(data)).
+    Loader.loadQuestions().
         then(Application.showWelcome);
   }
 
@@ -31,13 +23,26 @@ export default class Application {
 
   static showGame() {
     const model = new GameModel(questions);
-    const gamePage = new GamePage(model, Application.showResult);
+    const gamePage = new GamePage(model, Application.finish);
     Application._toggleScreen(gamePage.element);
     gamePage.startGame();
   }
 
-  static showResult(userResult) {
-    const resultPage = new ResultPage(userResult, Application.showGame);
+  static finish(currentGame) {
+    if (currentGame.score === -1) {
+      Application.showResult([], currentGame);
+    } else {
+      Loader.loadPreviousResults().
+          then((previousGames) => {
+            Loader.saveResult(currentGame);
+            Application.showResult(previousGames, currentGame);
+          });
+    }
+  }
+
+  static showResult(previousGames, currentGame) {
+    const currentResult = getResult(previousGames, currentGame);
+    const resultPage = new ResultPage(currentResult, Application.showGame);
     Application._toggleScreen(resultPage.element);
   }
 

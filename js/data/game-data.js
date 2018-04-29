@@ -1,5 +1,3 @@
-import Fixture from './../fixture';
-
 export const QuestionType = {
   ARTIST: `artist`,
   GENRE: `genre`
@@ -32,12 +30,3 @@ export const successResult = (stat, comparison) => ({
   comparison,
   buttonTitle: `Сыграть ещё раз`
 });
-
-const gameFixture = new Fixture(`score`, `remainingNotes`, `remainingTime`);
-
-export const previousGames = [
-  gameFixture.getTestObject(10, 3, 10),
-  gameFixture.getTestObject(7, 2, 20),
-  gameFixture.getTestObject(8, 1, 50),
-  gameFixture.getTestObject(20, 3, 50)
-];
