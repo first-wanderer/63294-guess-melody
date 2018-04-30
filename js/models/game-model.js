@@ -1,6 +1,5 @@
-import {INITIAL_GAME, previousGames} from '../data/game-data';
+import {INITIAL_GAME} from '../data/game-data';
 import getScore from '../get-score';
-import getResult from '../get-result';
 
 export default class GameModel {
   constructor(questions) {
@@ -16,18 +15,16 @@ export default class GameModel {
     return this._questions[this._state.questionNumber];
   }
 
-  get result() {
+  get total() {
     const remainingNotes = 3 - this._state.mistakes;
     const quickAnswers = this._answers.filter((item) => item.rightAnswer && item.spentTime < 30);
 
-    const currentGame = {
+    return {
       score: getScore(this._answers, remainingNotes),
       remainingTime: this._state.time,
       remainingNotes,
       quickAnswers: quickAnswers.length
     };
-
-    return getResult(previousGames, currentGame);
   }
 
   restart() {

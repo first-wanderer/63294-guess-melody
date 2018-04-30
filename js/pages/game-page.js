@@ -37,7 +37,7 @@ export default class GamePage {
 
   finishGame() {
     clearInterval(this._interval);
-    this._nextPage(this._model.result);
+    this._nextPage(this._model.total);
   }
 
   changeQuestion() {
