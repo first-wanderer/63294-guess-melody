@@ -4,6 +4,7 @@ import ResultPage from './pages/result-page';
 import GameModel from './models/game-model';
 import Loader from './loader';
 import getResult from './get-result';
+import DataAdapter from './data/data-adapter';
 import {FAIL_SCORE} from './constants';
 
 const mainContainer = document.querySelector(`.app .main`);
@@ -12,12 +13,19 @@ let questions;
 export default class Application {
   static start() {
     Loader.loadQuestions().
-        then(Application.showWelcome);
+        then((adaptedQuestions) => {
+          questions = adaptedQuestions;
+          const audioUrls = DataAdapter.getAllAudioUrls(adaptedQuestions);
+          const audioPromises = audioUrls.map(Loader.fetchAudio);
+          return Promise.all(audioPromises);
+        }).
+        then((loadedAudio) => {
+          window._preloadedAudio = loadedAudio;
+          Application.showWelcome();
+        });
   }
 
-
-  static showWelcome(data) {
-    questions = data;
+  static showWelcome() {
     const welcomePage = new WelcomePage(Application.showGame);
     Application._toggleScreen(welcomePage.element);
   }

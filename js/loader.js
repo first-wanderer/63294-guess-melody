@@ -32,6 +32,13 @@ export default class Loader {
         then(Loader._checkStatus);
   }
 
+  static fetchAudio(src) {
+    return window.fetch(src).
+        then(Loader._checkStatus).
+        then((response) => response.blob()).
+        then(Loader._createAudio);
+  }
+
   static _checkStatus(response, isNotFoundAvailable) {
     if (response.ok) {
       return response;
@@ -48,5 +55,11 @@ export default class Loader {
     }
 
     return [];
+  }
+
+  static _createAudio(blob) {
+    const audio = new Audio();
+    audio.src = URL.createObjectURL(blob);
+    return audio;
   }
 }
