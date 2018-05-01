@@ -27,16 +27,16 @@ describe(`Result getter`, () => {
   });
 
   it(`should return correct success message`, () => {
-    let expected = successResult(ResourceModel.getStringByAlias(`successResult`, [4, 35, 9, 2, 1]), ResourceModel.getStringByAlias(`successComparison`, [3, 5, 40]));
+    let expected = successResult(ResourceModel.getSuccessString(4, 35, 9, 2, 1), ResourceModel.getStringByAlias(`successComparison`, [3, 5, 40]));
     assert.deepEqual(getResult(fakePreviousGames, fakeNewGameSuccess), expected);
 
-    expected = successResult(ResourceModel.getStringByAlias(`successResult`, [4, 0, 20, 10, 0]), ResourceModel.getStringByAlias(`successComparison`, [1, 5, 80]));
+    expected = successResult(ResourceModel.getSuccessString(4, 0, 20, 10, 0), ResourceModel.getStringByAlias(`successComparison`, [1, 5, 80]));
     assert.deepEqual(getResult(fakePreviousGames, fakeNewGameFirstSuccess), expected);
 
-    expected = successResult(ResourceModel.getStringByAlias(`successResult`, [4, 40, 7, 1, 2]), ResourceModel.getStringByAlias(`successComparison`, [5, 5, 0]));
+    expected = successResult(ResourceModel.getSuccessString(4, 40, 7, 1, 2), ResourceModel.getStringByAlias(`successComparison`, [5, 5, 0]));
     assert.deepEqual(getResult(fakePreviousGames, fakeNewGameLastSuccess), expected);
 
-    expected = successResult(ResourceModel.getStringByAlias(`successResult`, [4, 40, 7, 1, 2]), ResourceModel.getStringByAlias(`successComparison`, [1, 1, 0]));
+    expected = successResult(ResourceModel.getSuccessString(4, 40, 7, 1, 2), ResourceModel.getStringByAlias(`successComparison`, [1, 1, 0]));
     assert.deepEqual(getResult([], fakeNewGameLastSuccess), expected);
   });
 

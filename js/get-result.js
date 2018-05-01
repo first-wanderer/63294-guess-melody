@@ -39,7 +39,7 @@ const getResult = (previousGames, newGame) => {
   const minutes = Math.trunc(gameTime / 60);
   const seconds = Math.trunc(gameTime - (60 * minutes));
 
-  const resultString = ResourceModel.getStringByAlias(`successResult`, [minutes, seconds, newGame.score, newGame.quickAnswers, 3 - newGame.remainingNotes]);
+  const resultString = ResourceModel.getSuccessString(minutes, seconds, newGame.score, newGame.quickAnswers, 3 - newGame.remainingNotes);
   const comparisonString = ResourceModel.getStringByAlias(`successComparison`, [position, gamesRating.length, Math.round(positionPercent)]);
 
   return successResult(resultString, comparisonString);
