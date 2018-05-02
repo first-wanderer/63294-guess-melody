@@ -1,3 +1,5 @@
+import {DECIMAL_BASE} from '../constants';
+
 const RESOURCE_STRINGS = {
   numberError: `Passed value should be a number bigger than 0.`,
   arrayError: `Passed parameter should be an Array.`,
@@ -20,6 +22,10 @@ const NumberType = {
   POINT: `балл`,
   ERROR: `ошиб`
 };
+
+const TWO_DECADES = 20;
+const ONE_UNIT = 1;
+const FIVE_UNITS = 5;
 
 export default class ResourceModel {
   static getStringByAlias(alias, replacedValues) {
@@ -52,12 +58,12 @@ export default class ResourceModel {
 
   static _getStringByNumber(type, number) {
     if (type === NumberType.MINUTE || type === NumberType.SECOND) {
-      const comparingNumber = number > 20 ? number % 10 : number;
+      const comparingNumber = number > TWO_DECADES ? number % DECIMAL_BASE : number;
 
       switch (true) {
-        case comparingNumber === 1:
+        case comparingNumber === ONE_UNIT:
           return `${number} ${type}у`;
-        case comparingNumber > 1 && number < 5:
+        case comparingNumber > ONE_UNIT && number < FIVE_UNITS:
           return `${number} ${type}ы`;
         default:
           return `${number} ${type}`;
@@ -66,9 +72,9 @@ export default class ResourceModel {
 
     if (type === NumberType.POINT) {
       switch (true) {
-        case number === 1:
+        case number === ONE_UNIT:
           return `${number} ${type}`;
-        case number > 1 && number < 5:
+        case number > ONE_UNIT && number < FIVE_UNITS:
           return `${number} ${type}а`;
         default:
           return `${number} ${type}ов`;
@@ -77,9 +83,9 @@ export default class ResourceModel {
 
     if (type === NumberType.ERROR) {
       switch (true) {
-        case number === 1:
+        case number === ONE_UNIT:
           return `${number} ${type}ку`;
-        case number > 1 && number < 5:
+        case number > ONE_UNIT && number < FIVE_UNITS:
           return `${number} ${type}ки`;
         default:
           return `${number} ${type}ок`;

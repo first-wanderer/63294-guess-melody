@@ -1,4 +1,5 @@
 import AbstractView from './abstract-view';
+import {SECONDS_BASE, DECIMAL_BASE} from '../constants';
 
 export default class InfoView extends AbstractView {
   constructor(info) {
@@ -7,14 +8,14 @@ export default class InfoView extends AbstractView {
   }
 
   get template() {
-    let minutes = Math.trunc(this._info.time / 60);
-    let seconds = Math.trunc(this._info.time - (60 * minutes));
+    let minutes = Math.trunc(this._info.time / SECONDS_BASE);
+    let seconds = Math.trunc(this._info.time - (SECONDS_BASE * minutes));
 
-    if (minutes < 10) {
+    if (minutes < DECIMAL_BASE) {
       minutes = `0${minutes}`;
     }
 
-    if (seconds < 10) {
+    if (seconds < DECIMAL_BASE) {
       seconds = `0${seconds}`;
     }
 

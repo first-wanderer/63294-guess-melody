@@ -5,6 +5,8 @@ import Timer from '../timer';
 import ResourceModel from '../models/resource-model';
 import {QuestionType} from '../data/game-data';
 
+const ONE_SECOND = 1000; // in milliseconds
+
 export default class GamePage {
   constructor(model, nextPage) {
     this._model = model;
@@ -32,7 +34,7 @@ export default class GamePage {
       this._model.tick();
       this._timer.tick();
       this.updateInfo();
-    }, 1000);
+    }, ONE_SECOND);
   }
 
   finishGame() {

@@ -4,6 +4,7 @@ import ResultPage from './pages/result-page';
 import GameModel from './models/game-model';
 import Loader from './loader';
 import getResult from './get-result';
+import {FAIL_SCORE} from './constants';
 
 const mainContainer = document.querySelector(`.app .main`);
 let questions;
@@ -29,7 +30,7 @@ export default class Application {
   }
 
   static finish(currentGame) {
-    if (currentGame.score === -1) {
+    if (currentGame.score === FAIL_SCORE) {
       Application.showResult([], currentGame);
     } else {
       Loader.loadPreviousResults().

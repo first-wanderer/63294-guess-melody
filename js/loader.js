@@ -3,6 +3,7 @@ import DataAdapter from './data/data-adapter';
 
 const SERVER_URL = `https://es.dump.academy/guess-melody`;
 const APP_ID = 632948;
+const NOT_FOUND_STATUS = 404;
 
 export default class Loader {
   static loadQuestions() {
@@ -34,7 +35,7 @@ export default class Loader {
   static _checkStatus(response, isNotFoundAvailable) {
     if (response.ok) {
       return response;
-    } else if (isNotFoundAvailable && response.status === 404) {
+    } else if (isNotFoundAvailable && response.status === NOT_FOUND_STATUS) {
       return null;
     }
 
