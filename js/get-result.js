@@ -1,5 +1,9 @@
 import ResourceModel from './models/resource-model';
 import {INITIAL_GAME, timeoutResult, failResult, successResult} from './data/game-data';
+import {SECONDS_BASE, MAX_NOTES} from './constants';
+
+const PERCENTS_BASE = 100;
+const POSITION_SHIFT = 1;
 
 const compareGames = (game, nextGame) => {
   if (game.score === nextGame.score) {
@@ -33,13 +37,13 @@ const getResult = (previousGames, newGame) => {
   gamesRating.push(newGame);
   gamesRating.sort(compareGames);
 
-  const position = gamesRating.indexOf(newGame) + 1;
-  const positionPercent = (gamesRating.length - position) / gamesRating.length * 100;
+  const position = gamesRating.indexOf(newGame) + POSITION_SHIFT;
+  const positionPercent = (gamesRating.length - position) / gamesRating.length * PERCENTS_BASE;
   const gameTime = INITIAL_GAME.time - newGame.remainingTime;
-  const minutes = Math.trunc(gameTime / 60);
-  const seconds = Math.trunc(gameTime - (60 * minutes));
+  const minutes = Math.trunc(gameTime / SECONDS_BASE);
+  const seconds = Math.trunc(gameTime - (SECONDS_BASE * minutes));
 
-  const resultString = ResourceModel.getSuccessString(minutes, seconds, newGame.score, newGame.quickAnswers, 3 - newGame.remainingNotes);
+  const resultString = ResourceModel.getSuccessString(minutes, seconds, newGame.score, newGame.quickAnswers, MAX_NOTES - newGame.remainingNotes);
   const comparisonString = ResourceModel.getStringByAlias(`successComparison`, [position, gamesRating.length, Math.round(positionPercent)]);
 
   return successResult(resultString, comparisonString);

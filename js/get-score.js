@@ -1,4 +1,10 @@
 import ResourceModel from './models/resource-model';
+import {FAIL_SCORE, QUICK_ANSWER_TIME} from './constants';
+
+const TOTAL_ANSWERS = 10;
+const INITIAL_SCORE = 0;
+const TWO_POINTS = 2;
+const ONE_POINT = 1;
 
 const getScore = (answers, noteCount) => {
   if (!Number.isInteger(noteCount) || noteCount < 0) {
@@ -9,17 +15,17 @@ const getScore = (answers, noteCount) => {
     throw new Error(ResourceModel.getStringByAlias(`arrayError`));
   }
 
-  if (noteCount === 0 || answers.length < 10) {
-    return -1;
+  if (noteCount === 0 || answers.length < TOTAL_ANSWERS) {
+    return FAIL_SCORE;
   }
 
   const mainScore = answers.reduce((score, currentAnswer) => {
     if (!currentAnswer.rightAnswer) {
-      return score - 2;
+      return score - TWO_POINTS;
     }
 
-    return currentAnswer.spentTime < 30 ? score + 2 : score + 1;
-  }, 0);
+    return currentAnswer.spentTime < QUICK_ANSWER_TIME ? score + TWO_POINTS : score + ONE_POINT;
+  }, INITIAL_SCORE);
 
   return mainScore;
 };

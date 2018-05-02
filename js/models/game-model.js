@@ -1,5 +1,6 @@
 import {INITIAL_GAME} from '../data/game-data';
 import getScore from '../get-score';
+import {QUICK_ANSWER_TIME, MAX_NOTES} from '../constants';
 
 export default class GameModel {
   constructor(questions) {
@@ -16,8 +17,8 @@ export default class GameModel {
   }
 
   get total() {
-    const remainingNotes = 3 - this._state.mistakes;
-    const quickAnswers = this._answers.filter((item) => item.rightAnswer && item.spentTime < 30);
+    const remainingNotes = MAX_NOTES - this._state.mistakes;
+    const quickAnswers = this._answers.filter((item) => item.rightAnswer && item.spentTime < QUICK_ANSWER_TIME);
 
     return {
       score: getScore(this._answers, remainingNotes),
@@ -50,6 +51,6 @@ export default class GameModel {
   }
 
   canContinue() {
-    return this._state.questionNumber < this._questions.length && this._state.mistakes < 3 && this._state.time > 0;
+    return this._state.questionNumber < this._questions.length && this._state.mistakes < MAX_NOTES && this._state.time > 0;
   }
 }
