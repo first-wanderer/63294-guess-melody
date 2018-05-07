@@ -16,7 +16,7 @@ export default class Application {
         then((adaptedQuestions) => {
           questions = adaptedQuestions;
           const audioUrls = DataAdapter.getAllAudioUrls(adaptedQuestions);
-          const audioPromises = audioUrls.map(Loader.fetchAudio);
+          const audioPromises = audioUrls.map(Loader.loadAudio);
           return Promise.all(audioPromises);
         }).
         then((loadedAudio) => {

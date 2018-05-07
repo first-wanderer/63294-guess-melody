@@ -32,11 +32,13 @@ export default class Loader {
         then(Loader._checkStatus);
   }
 
-  static fetchAudio(src) {
-    return window.fetch(src).
-        then(Loader._checkStatus).
-        then((response) => response.blob()).
-        then(Loader._createAudio);
+  static loadAudio(url) {
+    return new Promise((onLoad, onError) => {
+      const audio = new Audio();
+      audio.oncanplaythrough = () => onLoad(audio);
+      audio.onerror = () => onError(ResourceModel.getStringByAlias(`loadingDataError`));
+      audio.src = url;
+    });
   }
 
   static _checkStatus(response, isNotFoundAvailable) {
@@ -55,11 +57,5 @@ export default class Loader {
     }
 
     return [];
-  }
-
-  static _createAudio(blob) {
-    const audio = new Audio();
-    audio.src = URL.createObjectURL(blob);
-    return audio;
   }
 }
