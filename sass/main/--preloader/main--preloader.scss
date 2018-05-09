@@ -1,0 +1,52 @@
+.main--preloader {
+  .text {
+    height: 100px;
+    margin: 0;
+    margin-top: -100px;
+    font-size: 2em;
+    text-align: center;
+  }
+}
+
+.preloader {
+  display: block;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #363636;
+  animation: spin 2s linear infinite;
+}
+.preloader:before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #494949;
+  animation: spin 3s linear infinite;
+}
+.preloader:after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #808080;
+  animation: spin 1.5s linear infinite;
+}
+@keyframes spin {
+  0%   {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}

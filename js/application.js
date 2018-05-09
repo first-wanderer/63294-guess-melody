@@ -1,6 +1,7 @@
 import WelcomePage from './pages/welcome-page';
 import GamePage from './pages/game-page';
 import ResultPage from './pages/result-page';
+import PreloadingView from './views/preloading-view';
 import GameModel from './models/game-model';
 import Loader from './loader';
 import getResult from './get-result';
@@ -12,6 +13,7 @@ let questions;
 
 export default class Application {
   static start() {
+    Application.showPreloader();
     Loader.loadQuestions().
         then((adaptedQuestions) => {
           questions = adaptedQuestions;
@@ -23,6 +25,11 @@ export default class Application {
           window._preloadedAudio = loadedAudio;
           Application.showWelcome();
         });
+  }
+
+  static showPreloader() {
+    const preloadingView = new PreloadingView();
+    Application._toggleScreen(preloadingView.element);
   }
 
   static showWelcome() {
