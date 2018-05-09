@@ -2,6 +2,7 @@ import WelcomePage from './pages/welcome-page';
 import GamePage from './pages/game-page';
 import ResultPage from './pages/result-page';
 import PreloadingView from './views/preloading-view';
+import ErrorView from './views/error-view';
 import GameModel from './models/game-model';
 import Loader from './loader';
 import getResult from './get-result';
@@ -24,12 +25,18 @@ export default class Application {
         then((loadedAudio) => {
           window._preloadedAudio = loadedAudio;
           Application.showWelcome();
-        });
+        }).
+        catch(Application.showError);
   }
 
   static showPreloader() {
     const preloadingView = new PreloadingView();
     Application._toggleScreen(preloadingView.element);
+  }
+
+  static showError(error) {
+    const errorView = new ErrorView(error);
+    Application._toggleScreen(errorView.element);
   }
 
   static showWelcome() {
