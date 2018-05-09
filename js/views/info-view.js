@@ -1,5 +1,7 @@
 import AbstractView from './abstract-view';
-import {SECONDS_BASE, DECIMAL_BASE} from '../constants';
+import transformTime from '../transform-time';
+
+const CIRCLE_RADIUS = 370;
 
 export default class InfoView extends AbstractView {
   constructor(info) {
@@ -8,22 +10,15 @@ export default class InfoView extends AbstractView {
   }
 
   get template() {
-    let minutes = Math.trunc(this._info.time / SECONDS_BASE);
-    let seconds = Math.trunc(this._info.time - (SECONDS_BASE * minutes));
-
-    if (minutes < DECIMAL_BASE) {
-      minutes = `0${minutes}`;
-    }
-
-    if (seconds < DECIMAL_BASE) {
-      seconds = `0${seconds}`;
-    }
+    const {minutes, seconds, timeDasharray, timeDashoffset} = transformTime(this._info.time, CIRCLE_RADIUS);
 
     return `<div>
     <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
       <circle
-        cx="390" cy="390" r="370"
+        cx="390" cy="390" r="${CIRCLE_RADIUS}"
         class="timer-line"
+        stroke-dasharray="${timeDasharray}"
+        stroke-dashoffset="${timeDashoffset}"
         style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
 
       <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">

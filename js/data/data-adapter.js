@@ -2,6 +2,27 @@ import {QuestionType} from './game-data';
 import ResourceModel from '../models/resource-model';
 
 export default class DataAdapter {
+  static getAllAudioUrls(questions) {
+    let audioUrls = new Set();
+
+    questions.forEach((question) => {
+      switch (question.type) {
+        case QuestionType.ARTIST:
+          audioUrls.add(question.src);
+          break;
+        case QuestionType.GENRE:
+          question.answers.forEach((answer) => {
+            audioUrls.add(answer.src);
+          });
+          break;
+        default:
+          throw new Error(ResourceModel.getStringByAlias(`unknownQuestionError`));
+      }
+    });
+
+    return Array.from(audioUrls);
+  }
+
   static adaptServerData(serverData) {
     const adaptedQuestions = serverData.map((serverQuestion) => {
       let question;

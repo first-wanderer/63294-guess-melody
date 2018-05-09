@@ -1,9 +1,12 @@
 import WelcomePage from './pages/welcome-page';
 import GamePage from './pages/game-page';
 import ResultPage from './pages/result-page';
+import PreloadingView from './views/preloading-view';
+import ErrorView from './views/error-view';
 import GameModel from './models/game-model';
 import Loader from './loader';
 import getResult from './get-result';
+import DataAdapter from './data/data-adapter';
 import {FAIL_SCORE} from './constants';
 
 const mainContainer = document.querySelector(`.app .main`);
@@ -11,13 +14,32 @@ let questions;
 
 export default class Application {
   static start() {
+    Application.showPreloader();
     Loader.loadQuestions().
-        then(Application.showWelcome);
+        then((adaptedQuestions) => {
+          questions = adaptedQuestions;
+          const audioUrls = DataAdapter.getAllAudioUrls(adaptedQuestions);
+          const audioPromises = audioUrls.map(Loader.loadAudio);
+          return Promise.all(audioPromises);
+        }).
+        then((loadedAudio) => {
+          window._preloadedAudio = loadedAudio;
+          Application.showWelcome();
+        }).
+        catch(Application.showError);
   }
 
+  static showPreloader() {
+    const preloadingView = new PreloadingView();
+    Application._toggleScreen(preloadingView.element);
+  }
 
-  static showWelcome(data) {
-    questions = data;
+  static showError(error) {
+    const errorView = new ErrorView(error);
+    Application._toggleScreen(errorView.element);
+  }
+
+  static showWelcome() {
     const welcomePage = new WelcomePage(Application.showGame);
     Application._toggleScreen(welcomePage.element);
   }

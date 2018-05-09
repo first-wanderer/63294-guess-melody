@@ -32,6 +32,15 @@ export default class Loader {
         then(Loader._checkStatus);
   }
 
+  static loadAudio(url) {
+    return new Promise((onLoad, onError) => {
+      const audio = new Audio();
+      audio.oncanplaythrough = () => onLoad(audio);
+      audio.onerror = () => onError(ResourceModel.getStringByAlias(`loadingDataError`));
+      audio.src = url;
+    });
+  }
+
   static _checkStatus(response, isNotFoundAvailable) {
     if (response.ok) {
       return response;
